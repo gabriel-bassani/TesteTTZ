@@ -45,7 +45,7 @@ export function ModalEditarResultado({ id, okrId, open, onClose }: ModalEditarRe
     console.log('test id:', id);
     
     if(id && okrId){
-      let result = await getResult(okrId, id);
+      const result = await getResult(okrId, id);
       console.log('result:', result);
       
       setName(result.name);

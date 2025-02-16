@@ -1,132 +1,70 @@
-import { Box, Typography, Card, CardContent, Divider } from "@mui/material";
+"use client";
+import { Typography, Card, CardContent, Divider } from "@mui/material";
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import { useState } from "react";
+import { ModalAdicionarObj } from "../modal-adicionar-objetivo";
+import { ModalAdicionarResultado } from "../modal-adicionar-resultado";
+import { ModalEditarResultado } from "../modal-editar-resultado";
 
-export function CardObjetivo(){
-    const percentage = 50;
-    return(
-        <Card>
-            <CardContent>
-            <Typography variant="h5" gutterBottom>
-                Melhorar a satisfação do cliente
-            </Typography>
-            <div className="relative w-full h-10 bg-custom_light_blue rounded-full overflow-hidden">
-            {/* Barra de preenchimento */}
-            <div
+export function CardObjetivo() {
+  const percentage = 50;
+  const [openModalAdicionarResultado, setOpenModalAdicionarResultado] = useState(false);
+  const [openModalEditarResultado, setOpenModalEditarResultado] = useState(false);
+
+  return (
+    <div className="relative w-full">
+      <Card className="w-full">
+        <CardContent>
+          <Typography variant="h5" gutterBottom>
+            Melhorar a satisfação do cliente
+          </Typography>
+          <div className="flex justify-between items-center">
+            <div className="relative w-full h-6 bg-custom_light_blue rounded-full overflow-hidden">
+              <div
                 className="h-full bg-custom_dark_blue rounded-full transition-all duration-500"
                 style={{ width: `${percentage}%` }}
-            ></div>
-            {/* Texto da porcentagem */}
-            <Typography
+              ></div>
+              <Typography
                 variant="body1"
-                className="absolute inset-0 flex justify-center items-center font-bold text-custom_dark_grey"
-            >
+                className="absolute inset-0 flex justify-center items-center font-extrabold text-custom_dark_grey"
+              >
                 {percentage}%
-            </Typography>
+              </Typography>
             </div>
-            <Divider  className="text-custom_grey">Resultados-Chave</Divider>
-            <Typography variant="h5"  gutterBottom className="text-custom_dark_grey font-semibold">
-                Aumentar o NPS de 60 para 80
-            </Typography>
-            <div className="flex justify-between">
-                <Typography variant="subtitle1" gutterBottom className="text-custom_grey">
-                    Implementar pesquisas de satisfação pós atendimento
-                </Typography>
-                <Typography variant="subtitle1" gutterBottom className="text-custom_light_grey">
-                    25%
-                </Typography>
+            <div
+              className="w-10 h-10 border border-gray-300 hover:border-gray-400 text-gray-600 flex items-center justify-center rounded-md cursor-pointer ml-6"
+              onClick={() => setOpenModalEditarResultado(true)}
+            >
+              <EditOutlinedIcon fontSize="small" />
             </div>
-            <div>
-                <Typography variant="subtitle1" gutterBottom>
-                    Criar um programa de fidelidade para clientes recorrentes
-                </Typography>
-                <Typography variant="subtitle1" gutterBottom>
-                    10%
-                </Typography>
-            </div>
-            <Divider/>
-            <Typography variant="h5" gutterBottom className="text-custom_dark_grey">
-                Reduzir o tempo de resposta no suporte de 10h para 2h
-            </Typography>
-            <div>
-                <Typography variant="subtitle1" gutterBottom>
-                    Implementar pesquisas de satisfação pós atendimento
-                </Typography>
-                <Typography variant="subtitle1" gutterBottom>
-                    25%
-                </Typography>
-            </div>
-            <div>
-                <Typography variant="subtitle1" gutterBottom>
-                    Criar um programa de fidelidade para clientes recorrentes
-                </Typography>
-                <Typography variant="subtitle1" gutterBottom>
-                    10%
-                </Typography>
-            </div>
-            <div>
-                <Typography variant="subtitle1" gutterBottom>
-                    Criar um programa de fidelidade para clientes recorrentes
-                </Typography>
-                <Typography variant="subtitle1" gutterBottom>
-                    5%
-                </Typography>
-            </div>
+          </div>
 
-            </CardContent>
+          <Divider className="text-custom_grey">Resultados-Chave</Divider>
 
-        </Card>
-    )
+          <Typography variant="h5" gutterBottom className="text-custom_dark_grey font-extrabold">
+            Aumentar o NPS de 60 para 80
+          </Typography>
+
+          <div className="flex justify-between">
+            <Typography variant="subtitle1" gutterBottom className="text-custom_grey">
+              Implementar pesquisas de satisfação pós atendimento
+            </Typography>
+            <Typography variant="subtitle1" gutterBottom className="text-custom_light_grey">
+              25%
+            </Typography>
+          </div>
+
+          <Divider />
+        </CardContent>
+      </Card>
+      <div className="absolute right-0 mt-2" onClick={() => setOpenModalAdicionarResultado(true)}>
+        <Typography variant="subtitle1" className="text-blue-500 cursor-pointer hover:underline">
+          Adicionar Resultado-Chave
+        </Typography>
+      </div>
+
+      <ModalAdicionarResultado open={openModalAdicionarResultado} onClose={() => setOpenModalAdicionarResultado(false)} />
+      <ModalEditarResultado open={openModalEditarResultado} onClose={() => setOpenModalEditarResultado(false)} />
+    </div>
+  );
 }
-
-
-{/* <Box className="bg-white">
-<Typography variant="h5" gutterBottom>
-    Melhorar a satisfação do cliente
-</Typography>
-<Typography variant="h4" gutterBottom>
-    Aumentar o NPS de 60 para 80
-</Typography>
-<div>
-    <Typography variant="subtitle1" gutterBottom>
-        Implementar pesquisas de satisfação pós atendimento
-    </Typography>
-    <Typography variant="subtitle1" gutterBottom>
-        25%
-    </Typography>
-</div>
-<div>
-    <Typography variant="subtitle1" gutterBottom>
-        Criar um programa de fidelidade para clientes recorrentes
-    </Typography>
-    <Typography variant="subtitle1" gutterBottom>
-        10%
-    </Typography>
-</div>
-<Typography variant="h5" gutterBottom>
-    Reduzir o tempo de resposta no suporte de 10h para 2h
-</Typography>
-<div>
-    <Typography variant="subtitle1" gutterBottom>
-        Implementar pesquisas de satisfação pós atendimento
-    </Typography>
-    <Typography variant="subtitle1" gutterBottom>
-        25%
-    </Typography>
-</div>
-<div>
-    <Typography variant="subtitle1" gutterBottom>
-        Criar um programa de fidelidade para clientes recorrentes
-    </Typography>
-    <Typography variant="subtitle1" gutterBottom>
-        10%
-    </Typography>
-</div>
-<div>
-    <Typography variant="subtitle1" gutterBottom>
-        Criar um programa de fidelidade para clientes recorrentes
-    </Typography>
-    <Typography variant="subtitle1" gutterBottom>
-        5%
-    </Typography>
-</div>
-
-</Box> */}

@@ -19,7 +19,7 @@ export async function getOKRs(): Promise<OKRResponse>  {
     }
 }
 
-export async function postObjetivo(objetivo: string) {
+export async function postObjective(objetivo: string) {
     
     if (!API_URL) {
       throw new Error("API não definida.");
@@ -34,6 +34,27 @@ export async function postObjetivo(objetivo: string) {
       return response.data;
     } catch (error) {
       console.error("Erro ao criar objetivo:", error);
+      throw error;
+    }
+
+}
+
+export async function postResult(name: string, deliveries: {name: string, value: string}[], id: string) {
+    
+    if (!API_URL) {
+      throw new Error("API não definida.");
+    }
+
+    try {
+      const response = await axios.post(`${API_URL}/okrs/${id}/resultKeys`,
+        {
+            name,
+            deliveries,
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Erro ao criar resultado:", error);
       throw error;
     }
 

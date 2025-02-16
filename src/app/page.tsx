@@ -10,6 +10,7 @@ import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 
 export default function Home() {
   const [openModalAdicionarResultado, setOpenModalAdicionarResultado] = useState<boolean>(false);
+  const [selectedOkrId, setSelectedOkrId] = useState<string | null>(null); // Estado para armazenar o OKR selecionado
   const [openModalAdicionarObjetivo, setOpenModalAdicionarObjetivo] = useState<boolean>(false);
   const [okrs, setOkrs] = useState<OKRResponse>([]);
   const [loading, setLoading] = useState(true);
@@ -39,7 +40,7 @@ export default function Home() {
             className="bg-custom_dark_blue text-white px-4 py-2 rounded-lg hover:bg-custom_darkest_blue"
             onClick={() => setOpenModalAdicionarObjetivo(true)}
           >
-            <AddOutlinedIcon/>
+            <AddOutlinedIcon />
             Criar Objetivo
           </button>
         </div>
@@ -51,7 +52,13 @@ export default function Home() {
               {okrs.map((okr) => (
                 <div key={okr.id} className="relative">
                   <CardObjetivo data={okr} />
-                  <div className="text-right mt-2" onClick={() => setOpenModalAdicionarResultado(true)}>
+                  <div
+                    className="text-right mt-2"
+                    onClick={() => {
+                      setSelectedOkrId(okr.id); // Define o OKR selecionado
+                      setOpenModalAdicionarResultado(true); // Abre o modal
+                    }}
+                  >
                     <p className="text-blue-500 cursor-pointer hover:underline">Adicionar Resultado-Chave</p>
                   </div>
                 </div>
@@ -61,7 +68,14 @@ export default function Home() {
         </div>
       </div>
 
-      <ModalAdicionarResultado open={openModalAdicionarResultado} onClose={() => setOpenModalAdicionarResultado(false)} />
+      <ModalAdicionarResultado
+        open={openModalAdicionarResultado}
+        onClose={() => {
+          setOpenModalAdicionarResultado(false);
+          setSelectedOkrId(null); // Reseta o estado ao fechar o modal
+        }}
+        id={selectedOkrId} // Passa o ID do OKR selecionado
+      />
 
       <ModalAdicionarObjetivo
         open={openModalAdicionarObjetivo}

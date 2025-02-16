@@ -1,5 +1,5 @@
-import { postObjetivo } from "@/services/okrService";
-import { Modal, Typography, Card, CardContent, TextField, Button, CardActions, CardHeader, IconButton } from "@mui/material";
+import { postObjective } from "@/services/okrService";
+import { Modal, Typography, Card, CardContent, TextField, CardHeader, IconButton } from "@mui/material";
 import { useState } from "react";
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 
@@ -10,14 +10,14 @@ interface ModalAdicionarObjProps {
 }
 
 export function ModalAdicionarObjetivo({ open, onClose, onSave }: ModalAdicionarObjProps) {
-  const [objetivo, setObjetivo] = useState<string>("");
+  const [objective, setObjective] = useState<string>("");
 
-  const criaObjetivo = async () => {
-    console.log("test criaObjetivo:", objetivo);
+  const createObjective = async () => {
+    console.log("test criaobjective:", objective);
 
-    if (objetivo.trim()){
-      await postObjetivo(objetivo);
-      setObjetivo('');
+    if (objective.trim()){
+      await postObjective(objective);
+      setObjective('');
       onSave();
     }
   };
@@ -33,12 +33,12 @@ export function ModalAdicionarObjetivo({ open, onClose, onSave }: ModalAdicionar
         <CardHeader
           title={
 
-          <p className="text-xl font-semibold text-gray-700">Criar Novo Objetivo</p>
+          <p className="text-xl font-semibold text-gray-700">Criar Novo objective</p>
           }
           action={
             <IconButton
               onClick={() => {
-                setObjetivo('');
+                setObjective('');
                 onClose();
               }}
             >
@@ -48,18 +48,18 @@ export function ModalAdicionarObjetivo({ open, onClose, onSave }: ModalAdicionar
           }
         />
         <CardContent>
-        <Typography variant="subtitle1" className="mb-1 text-gray-700">Objetivo</Typography>
+        <Typography variant="subtitle1" className="mb-1 text-gray-700">objective</Typography>
           <TextField
             fullWidth
             id="outlined-basic"
-            label="Digite o objetivo"
+            label="Digite o objective"
             variant="outlined"
-            value={objetivo}
-            onChange={(e) => setObjetivo(e.target.value)}
+            value={objective}
+            onChange={(e) => setObjective(e.target.value)}
           />
           <button
             className="bg-custom_dark_blue text-white px-4 py-2 rounded-lg hover:bg-custom_darkest_blue w-full mt-4"
-            onClick={criaObjetivo}
+            onClick={createObjective}
           >
             Salvar
           </button>
@@ -67,7 +67,7 @@ export function ModalAdicionarObjetivo({ open, onClose, onSave }: ModalAdicionar
         {/* <CardActions>
           <button
             className="bg-custom_dark_blue text-white px-4 py-2 rounded-lg hover:bg-custom_darkest_blue w-full"
-            onClick={criaObjetivo}
+            onClick={criaobjective}
           >
             Salvar
           </button>

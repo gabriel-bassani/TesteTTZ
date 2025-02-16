@@ -2,20 +2,22 @@ import { Modal, Card, CardContent, TextField, IconButton, CardHeader } from "@mu
 import { useState } from "react";
 import { DeleteOutline, CloseOutlined, AddOutlined } from "@mui/icons-material";
 import { red } from "@mui/material/colors";
+import { postResult } from "@/services/okrService";
 
 interface ModalAdicionarResultadoProps {
+  id: string | null;
   open: boolean;
   onClose: () => void;
 }
 
 interface Delivery {
-  delivery: string;
+  name: string;
   value: string;
 }
 
-export function ModalAdicionarResultado({ open, onClose }: ModalAdicionarResultadoProps) {
+export function ModalAdicionarResultado({ id, open, onClose }: ModalAdicionarResultadoProps) {
   const [name, setName] = useState<string>("");
-  const [deliveries, setDeliveries] = useState<Delivery[]>([{ delivery: "", value: "" }]);
+  const [deliveries, setDeliveries] = useState<Delivery[]>([{ name: "", value: "" }]);
 
   const handleDeliveryChange = (index: number, field: keyof Delivery, value: string) => {
     const updatedDeliveries = [...deliveries];
@@ -24,7 +26,7 @@ export function ModalAdicionarResultado({ open, onClose }: ModalAdicionarResulta
   };
 
   const addDelivery = () => {
-    setDeliveries([...deliveries, { delivery: "", value: "" }]);
+    setDeliveries([...deliveries, { name: "", value: "" }]);
   };
 
   const deleteDelivery = (index: number) => {
@@ -34,6 +36,7 @@ export function ModalAdicionarResultado({ open, onClose }: ModalAdicionarResulta
 
   const handleSave = () => {
     console.log({ name, deliveries });
+    if(id)postResult(name, deliveries, id)
     onClose();
   };
 
@@ -62,8 +65,8 @@ export function ModalAdicionarResultado({ open, onClose }: ModalAdicionarResulta
                 fullWidth
                 label="Digite a entrega"
                 variant="outlined"
-                value={delivery.delivery}
-                onChange={(e) => handleDeliveryChange(index, "delivery", e.target.value)}
+                value={delivery.name}
+                onChange={(e) => handleDeliveryChange(index, "name", e.target.value)}
               />
               <TextField
                 fullWidth

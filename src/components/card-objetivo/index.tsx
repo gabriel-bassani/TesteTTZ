@@ -8,6 +8,8 @@ import { BarraProgresso } from "../barra-progresso";
 
 export function CardObjetivo({ data }: { data: OKR }) {
   const [openModalEditarResultado, setOpenModalEditarResultado] = useState(false);
+  const [ idResult, setIdResult ] = useState<string | null>(null);
+  const [ okrId, setOkrId ] = useState<string | null>(null);
 
 
   const totalDeliveries = data.resultKeys.flatMap((result) => result.deliveries);
@@ -41,7 +43,11 @@ export function CardObjetivo({ data }: { data: OKR }) {
                   <BarraProgresso percentage={resultPercentage} />
                   <div
                     className="w-10 h-10 border border-gray-300 hover:border-gray-400 text-gray-600 flex items-center justify-center rounded-md cursor-pointer ml-6"
-                    onClick={() => setOpenModalEditarResultado(true)}
+                    onClick={() => {
+                        setIdResult(result.id);
+                        setOkrId(result.okrId);
+                        setOpenModalEditarResultado(true);
+                    }}
                   >
                     <EditOutlinedIcon fontSize="small" />
                   </div>
@@ -67,7 +73,7 @@ export function CardObjetivo({ data }: { data: OKR }) {
         </CardContent>
       </Card>
 
-      <ModalEditarResultado open={openModalEditarResultado} onClose={() => setOpenModalEditarResultado(false)} />
+      <ModalEditarResultado id={idResult} okrId={okrId} open={openModalEditarResultado} onClose={() => setOpenModalEditarResultado(false)} />
     </div>
   );
 }

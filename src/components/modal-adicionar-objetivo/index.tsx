@@ -33,7 +33,7 @@ export function ModalAdicionarObjetivo({ open, onClose, onSave }: ModalAdicionar
         <CardHeader
           title={
 
-          <p className="text-xl font-semibold text-gray-700">Criar Novo objective</p>
+          <p className="text-xl font-semibold text-gray-700">Criar Novo Objetivo</p>
           }
           action={
             <IconButton
@@ -48,11 +48,11 @@ export function ModalAdicionarObjetivo({ open, onClose, onSave }: ModalAdicionar
           }
         />
         <CardContent>
-        <Typography variant="subtitle1" className="mb-1 text-gray-700">objective</Typography>
+        <Typography variant="subtitle1" className="mb-1 text-gray-700">Objetivo</Typography>
           <TextField
             fullWidth
             id="outlined-basic"
-            label="Digite o objective"
+            label="Digite o objetivo"
             variant="outlined"
             value={objective}
             onChange={(e) => setObjective(e.target.value)}

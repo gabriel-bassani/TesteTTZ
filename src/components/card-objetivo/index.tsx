@@ -2,7 +2,7 @@
 import { Typography, Card, CardContent, Divider } from "@mui/material";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { useState } from "react";
-import { ModalAdicionarObj } from "../modal-adicionar-objetivo";
+import { ModalAdicionarObjetivo } from "../modal-adicionar-objetivo";
 import { ModalAdicionarResultado } from "../modal-adicionar-resultado";
 import { ModalEditarResultado } from "../modal-editar-resultado";
 
@@ -57,13 +57,11 @@ export function CardObjetivo() {
           <Divider />
         </CardContent>
       </Card>
-      <div className="absolute right-0 mt-2" onClick={() => setOpenModalAdicionarResultado(true)}>
+      {/* <div className="absolute right-0 mt-2" onClick={() => setOpenModalAdicionarResultado(true)}>
         <Typography variant="subtitle1" className="text-blue-500 cursor-pointer hover:underline">
           Adicionar Resultado-Chave
         </Typography>
-      </div>
-
-      <ModalAdicionarResultado open={openModalAdicionarResultado} onClose={() => setOpenModalAdicionarResultado(false)} />
+      </div> */}
       <ModalEditarResultado open={openModalEditarResultado} onClose={() => setOpenModalEditarResultado(false)} />
     </div>
   );

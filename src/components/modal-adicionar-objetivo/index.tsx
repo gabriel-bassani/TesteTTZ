@@ -5,7 +5,7 @@ interface ModalAdicionarObjProps {
   onClose: () => void;
 }
 
-export function ModalAdicionarObj({ open, onClose }: ModalAdicionarObjProps) {
+export function ModalAdicionarObjetivo({ open, onClose }: ModalAdicionarObjProps) {
   return (
     <Modal
       open={open}

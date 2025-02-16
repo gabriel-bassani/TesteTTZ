@@ -13,6 +13,7 @@ export default {
         foreground: "var(--foreground)",
         custom_light_blue: "#a1e6ee",
         custom_dark_blue: "#1aa8c3",
+        custom_darkest_blue: "#178195",
         custom_light_grey: "#b4bcb4",
         custom_grey: "#74737c",
         custom_dark_grey: "#37414d",

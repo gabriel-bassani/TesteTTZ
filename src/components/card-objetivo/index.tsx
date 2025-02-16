@@ -5,8 +5,9 @@ import { useState } from "react";
 import { ModalAdicionarObjetivo } from "../modal-adicionar-objetivo";
 import { ModalAdicionarResultado } from "../modal-adicionar-resultado";
 import { ModalEditarResultado } from "../modal-editar-resultado";
+import { OKR } from "@/types/okr";
 
-export function CardObjetivo() {
+export function CardObjetivo({ data }: { data: OKR }) {
   const percentage = 50;
   const [openModalAdicionarResultado, setOpenModalAdicionarResultado] = useState(false);
   const [openModalEditarResultado, setOpenModalEditarResultado] = useState(false);
@@ -16,7 +17,7 @@ export function CardObjetivo() {
       <Card className="w-full">
         <CardContent>
           <Typography variant="h5" gutterBottom>
-            Melhorar a satisfação do cliente
+            {data.name}
           </Typography>
           <div className="flex justify-between items-center">
             <div className="relative w-full h-6 bg-custom_light_blue rounded-full overflow-hidden">
@@ -40,8 +41,25 @@ export function CardObjetivo() {
           </div>
 
           <Divider className="text-custom_grey">Resultados-Chave</Divider>
-
-          <Typography variant="h5" gutterBottom className="text-custom_dark_grey font-extrabold">
+            {data.resultKeys.map((result, index) => (
+                <div key={index}>
+                    <Typography variant="h5" gutterBottom className="text-custom_dark_grey font-extrabold">
+                        {result.name}
+                    </Typography>
+                    {result.deliveries.map((delivery, index) => (
+                            <div key={index} className="flex justify-between">
+                            <Typography variant="subtitle1" gutterBottom className="text-custom_grey">
+                                {delivery.name}
+                            </Typography>
+                            <Typography variant="subtitle1" gutterBottom className="text-custom_light_grey">
+                                {delivery.value}%
+                            </Typography>
+                        </div>
+                    ))}
+                </div>
+            
+            ))}
+          {/* <Typography variant="h5" gutterBottom className="text-custom_dark_grey font-extrabold">
             Aumentar o NPS de 60 para 80
           </Typography>
 
@@ -52,7 +70,7 @@ export function CardObjetivo() {
             <Typography variant="subtitle1" gutterBottom className="text-custom_light_grey">
               25%
             </Typography>
-          </div>
+          </div> */}
 
           <Divider />
         </CardContent>

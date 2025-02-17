@@ -9,6 +9,7 @@ interface ModalEditarResultadoProps {
   okrId: string | null;
   open: boolean;
   onClose: () => void;
+  onSave: () => void;
 }
 
 interface Delivery {
@@ -16,7 +17,7 @@ interface Delivery {
   value: string;
 }
 
-export function ModalEditarResultado({ id, okrId, open, onClose }: ModalEditarResultadoProps) {
+export function ModalEditarResultado({ id, okrId, open, onClose, onSave }: ModalEditarResultadoProps) {
   const [name, setName] = useState<string>("");
   const [deliveries, setDeliveries] = useState<Delivery[]>([{ name: "", value: "" }]);
 
@@ -42,26 +43,25 @@ export function ModalEditarResultado({ id, okrId, open, onClose }: ModalEditarRe
   };
 
   const getResultData = async () => {
-    console.log('test id:', id);
+    // console.log('test id:', id);
     
     if(id && okrId){
       const result = await getResult(okrId, id);
       console.log('result:', result);
       
       setName(result.name);
-      console.log('name:', name);
       
       setDeliveries(result.deliveries);
-      console.log('deliveries:', deliveries);
 
     }
     
   }
 
-  const handleSave = () => {
-    console.log({ name, deliveries });
-    if(id )putResult(name, deliveries, id)
-    onClose();
+  const handleSave = async () => {
+    // console.log({ name, deliveries });
+    if(id && okrId) await putResult(name, deliveries, id, okrId)
+      onSave();
+      onClose();
   };
 
   return (
@@ -70,6 +70,7 @@ export function ModalEditarResultado({ id, okrId, open, onClose }: ModalEditarRe
         <CardHeader
           title={<p className="text-xl font-semibold text-gray-700">Editar Resultado-Chave</p>}
           action={
+            // Fecha o modal sem fazer uma request
             <IconButton onClick={onClose}>
               <CloseOutlined />
             </IconButton>
@@ -83,6 +84,7 @@ export function ModalEditarResultado({ id, okrId, open, onClose }: ModalEditarRe
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
+          {/* Lista as entregas para o usuário fazer as edições desejadas */}
           {deliveries.map((delivery, index) => (
             <div key={index} className="flex gap-2 mt-4">
               <TextField
@@ -100,11 +102,13 @@ export function ModalEditarResultado({ id, okrId, open, onClose }: ModalEditarRe
                 onChange={(e) => handleDeliveryChange(index, "value", e.target.value)}
                 type="number"
               />
+              {/* Remove o item de entrega clicado */}
               <IconButton onClick={() => deleteDelivery(index)}>
                 <DeleteOutline sx={{ color: red[400] }} />
               </IconButton>
             </div>
           ))}
+          {/* Cria nova linha de input de entrega */}
           <div className="flex items-center gap-2 cursor-pointer text-black hover:underline mt-2 justify-end" onClick={addDelivery}>
             <AddOutlined className="w-5 h-5" />
             <p>Adicionar Entrega</p>

@@ -8,6 +8,7 @@ interface ModalAdicionarResultadoProps {
   id: string | null;
   open: boolean;
   onClose: () => void;
+  onSave: () => void;
 }
 
 interface Delivery {
@@ -15,7 +16,7 @@ interface Delivery {
   value: string;
 }
 
-export function ModalAdicionarResultado({ id, open, onClose }: ModalAdicionarResultadoProps) {
+export function ModalAdicionarResultado({ id, open, onClose, onSave }: ModalAdicionarResultadoProps) {
   const [name, setName] = useState<string>("");
   const [deliveries, setDeliveries] = useState<Delivery[]>([{ name: "", value: "" }]);
 
@@ -34,18 +35,22 @@ export function ModalAdicionarResultado({ id, open, onClose }: ModalAdicionarRes
     setDeliveries(updatedDeliveries);
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     console.log({ name, deliveries });
-    if(id)postResult(name, deliveries, id)
-    onClose();
+    if(id) await postResult(name, deliveries, id)
+    setName('');
+    setDeliveries([])
+    onSave();
   };
 
   return (
+    // Modal de criar um novo resultado-chave
     <Modal open={open} onClose={onClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
       <Card className="w-1/3 mx-auto mt-32 p-4">
         <CardHeader
           title={<p className="text-xl font-semibold text-gray-700">Criar Novo Resultado-Chave</p>}
           action={
+            // Fecha o modal sem fazer uma request
             <IconButton onClick={onClose}>
               <CloseOutlined />
             </IconButton>
@@ -59,6 +64,7 @@ export function ModalAdicionarResultado({ id, open, onClose }: ModalAdicionarRes
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
+          {/* Lista as entregas para o usuário, atualiza quando uma nova linha é adicionada */}
           {deliveries.map((delivery, index) => (
             <div key={index} className="flex gap-2 mt-4">
               <TextField
@@ -76,11 +82,13 @@ export function ModalAdicionarResultado({ id, open, onClose }: ModalAdicionarRes
                 onChange={(e) => handleDeliveryChange(index, "value", e.target.value)}
                 type="number"
               />
+              {/* Remove o item de entrega clicado */}
               <IconButton onClick={() => deleteDelivery(index)}>
                 <DeleteOutline sx={{ color: red[400] }} />
               </IconButton>
             </div>
           ))}
+          {/* Cria nova linha de input de entrega */}
           <div className="flex items-center gap-2 cursor-pointer text-black hover:underline mt-2 justify-end" onClick={addDelivery}>
             <AddOutlined className="w-5 h-5" />
             <p>Adicionar Entrega</p>

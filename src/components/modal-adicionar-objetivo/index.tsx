@@ -13,7 +13,7 @@ export function ModalAdicionarObjetivo({ open, onClose, onSave }: ModalAdicionar
   const [objective, setObjective] = useState<string>("");
 
   const createObjective = async () => {
-    console.log("test criaobjective:", objective);
+    // console.log("test criaobjective:", objective);
 
     if (objective.trim()){
       await postObjective(objective);
@@ -23,6 +23,7 @@ export function ModalAdicionarObjetivo({ open, onClose, onSave }: ModalAdicionar
   };
 
   return (
+    // Modal simples pra criar objetivo
     <Modal
       open={open}
       onClose={onClose}
@@ -32,10 +33,10 @@ export function ModalAdicionarObjetivo({ open, onClose, onSave }: ModalAdicionar
       <Card className="w-1/3 mx-auto mt-32 p-4">
         <CardHeader
           title={
-
           <p className="text-xl font-semibold text-gray-700">Criar Novo Objetivo</p>
           }
           action={
+            // Fecha o modal sem fazer uma request
             <IconButton
               onClick={() => {
                 setObjective('');

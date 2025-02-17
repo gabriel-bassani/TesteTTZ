@@ -4,7 +4,6 @@ import { OKRResponse, ResultKey } from "@/types/okr";
 const API_URL = process.env.NEXT_PUBLIC_MOCK_API || 'https://67a67e77510789ef0dfb8c44.mockapi.io/api';
 
 export async function getOKRs(): Promise<OKRResponse>  {
-    // console.log('API_URL:', API_URL);
     
     if (!API_URL) {
       throw new Error("API não definida.");
@@ -76,14 +75,15 @@ export async function postResult(name: string, deliveries: {name: string, value:
 
 }
 
-export async function putResult(name: string, deliveries: {name: string, value: string}[], id: string) {
+export async function putResult(name: string, deliveries: {name: string, value: string}[], id: string, okrId: string) {
+    console.log(name, deliveries, id);
     
     if (!API_URL) {
       throw new Error("API não definida.");
     }
 
     try {
-      const response = await axios.post(`${API_URL}/okrs/${id}/resultKeys`,
+      const response = await axios.put(`${API_URL}/okrs/${okrId}/resultKeys/${id}`,
         {
             name,
             deliveries,
@@ -91,7 +91,7 @@ export async function putResult(name: string, deliveries: {name: string, value: 
       );
       return response.data;
     } catch (error) {
-      console.error("Erro ao criar resultado:", error);
+      console.error("Erro ao editar resultado:", error);
       throw error;
     }
 

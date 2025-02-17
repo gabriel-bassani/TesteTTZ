@@ -1,7 +1,7 @@
 import axios from "axios";
 import { OKRResponse, ResultKey } from "@/types/okr";
 
-const API_URL = process.env.NEXT_PUBLIC_MOCK_API;
+const API_URL = process.env.NEXT_PUBLIC_MOCK_API || 'https://67a67e77510789ef0dfb8c44.mockapi.io/api';
 
 export async function getOKRs(): Promise<OKRResponse>  {
     // console.log('API_URL:', API_URL);

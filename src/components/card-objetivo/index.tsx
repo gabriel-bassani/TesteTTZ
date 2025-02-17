@@ -42,6 +42,7 @@ export function CardObjetivo({ data }: { data: OKR }) {
                 <div className="flex justify-between items-center pb-4">
                   <BarraProgresso percentage={resultPercentage} />
                   <div
+                    data-testid="edit-button"
                     className="w-10 h-10 border border-gray-300 hover:border-gray-400 text-gray-600 flex items-center justify-center rounded-md cursor-pointer ml-6"
                     onClick={() => {
                         setIdResult(result.id);

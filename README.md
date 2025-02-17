@@ -9,6 +9,13 @@ Usei o seguinte comando para rodar localmente:
 yarn dev
 ```
 
+Para instalar as dependências, use
+```bash
+yarn install
+#ou
+npm install
+```
+
 O projeto está disponível no github:
 https://github.com/gabriel-bassani/TesteTTZ
 
